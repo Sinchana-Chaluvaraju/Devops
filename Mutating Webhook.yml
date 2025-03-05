@@ -1,0 +1,18 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: inject-env-webhook
+webhooks:
+- name: inject-env.example.com
+  clientConfig:
+    service:
+      name: inject-env-service
+      namespace: default
+      path: "/mutate"
+  rules:
+  - operations: [ "CREATE" ]
+    apiGroups: [ "" ]
+    apiVersions: [ "v1" ]
+    resources: [ "pods" ]
+  admissionReviewVersions: [ "v1" ]
+  sideEffects: None

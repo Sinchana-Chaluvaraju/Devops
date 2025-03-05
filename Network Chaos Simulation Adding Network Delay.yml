@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pumba-network-delay
+spec:
+  containers:
+  - name: pumba
+    image: gaiaadm/pumba
+    command: [ "pumba", "netem", "delay", "1000ms", "--interface", "eth0", "re2:.*backend.*" ]
+    securityContext:
+      capabilities:
+        add:
+        - NET_ADMIN

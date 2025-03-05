@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flappy-backend
+  template:
+    metadata:
+      labels:
+        app: flappy-backend
+        version: canary
+    spec:
+      containers:
+      - name: backend
+        image: laumih/flappy-backend:v2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-stable
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: flappy-backend
+  template:
+    metadata:
+      labels:
+        app: flappy-backend
+        version: stable
+    spec:
+      containers:
+      - name: backend
+        image: laumih/flappy-backend:v1

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flappy-backend
+  template:
+    metadata:
+      labels:
+        apps: flappy-backend
+    spec:
+      containers:
+      - name: backend
+        image: laumih/flappy-backend:v1
+        ports:
+        - containerPort: 3000
